@@ -1,81 +1,21 @@
-apiVersion: apps/v1beta2
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    deployment.kubernetes.io/revision: "1"
-    field.cattle.io/creatorId: user-g2t9t
-    field.cattle.io/publicEndpoints: '[{"addresses":["13.228.200.22"],"port":30005,"protocol":"TCP","serviceName":"test-deployment:hellowhale-nodeport","allNodes":true}]'
-  creationTimestamp: "2019-09-10T18:55:57Z"
-  generation: 2
+  name: nginx-deployment
   labels:
-    cattle.io/creator: norman
-    workload.user.cattle.io/workloadselector: deployment-test-deployment-hellowhale
-  name: hellowhale
-  namespace: test-deployment
-  resourceVersion: "121741"
-  selfLink: /apis/apps/v1beta2/namespaces/test-deployment/deployments/hellowhale
-  uid: 9f936be2-d3fc-11e9-bda2-021b375d7952
+    app: nginx
 spec:
-  progressDeadlineSeconds: 600
-  replicas: 1
-  revisionHistoryLimit: 10
+  replicas: 3
   selector:
     matchLabels:
-      workload.user.cattle.io/workloadselector: deployment-test-deployment-hellowhale
-  strategy:
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
-    type: RollingUpdate
+      app: nginx
   template:
     metadata:
-      annotations:
-        cattle.io/timestamp: "2019-09-10T18:55:49Z"
-        field.cattle.io/ports: '[[{"containerPort":80,"dnsName":"hellowhale-nodeport","kind":"NodePort","name":"80tcp300051","protocol":"TCP","sourcePort":30005}]]'
-      creationTimestamp: null
       labels:
-        workload.user.cattle.io/workloadselector: deployment-test-deployment-hellowhale
+        app: nginx
     spec:
       containers:
-      - image: tawsif93/hellowhale
-        imagePullPolicy: Always
-        name: hellowhale
+      - name: nginx
+        image: nginx:1.7.9
         ports:
         - containerPort: 80
-          name: 80tcp300051
-          protocol: TCP
-        resources: {}
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities: {}
-          privileged: false
-          readOnlyRootFilesystem: false
-          runAsNonRoot: false
-        stdin: true
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
-        tty: true
-      dnsConfig: {}
-      dnsPolicy: ClusterFirst
-      restartPolicy: Always
-      schedulerName: default-scheduler
-      securityContext: {}
-      terminationGracePeriodSeconds: 30
-status:
-  conditions:
-  - lastTransitionTime: "2019-09-10T18:55:57Z"
-    lastUpdateTime: "2019-09-10T18:55:57Z"
-    message: Deployment does not have minimum availability.
-    reason: MinimumReplicasUnavailable
-    status: "False"
-    type: Available
-  - lastTransitionTime: "2019-09-10T18:55:57Z"
-    lastUpdateTime: "2019-09-10T18:55:57Z"
-    message: ReplicaSet "hellowhale-85cc9fb844" is progressing.
-    reason: ReplicaSetUpdated
-    status: "True"
-    type: Progressing
-  observedGeneration: 2
-  replicas: 1
-  unavailableReplicas: 1
-  updatedReplicas: 1
