@@ -1,4 +1,4 @@
-apiVersion: apps/v1beta2
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
@@ -13,7 +13,7 @@ metadata:
   name: hellowhale
   namespace: test-deployment
   resourceVersion: "121741"
-  selfLink: /apis/apps/v1beta2/namespaces/test-deployment/deployments/hellowhale
+  selfLink: /apis/apps/v1/namespaces/test-deployment/deployments/hellowhale
   uid: 9f936be2-d3fc-11e9-bda2-021b375d7952
 spec:
   progressDeadlineSeconds: 600
@@ -32,7 +32,6 @@ spec:
       annotations:
         cattle.io/timestamp: "2019-09-10T18:55:49Z"
         field.cattle.io/ports: '[[{"containerPort":80,"dnsName":"hellowhale-nodeport","kind":"NodePort","name":"80tcp300051","protocol":"TCP","sourcePort":30005}]]'
-      creationTimestamp: null
       labels:
         workload.user.cattle.io/workloadselector: deployment-test-deployment-hellowhale
     spec:
